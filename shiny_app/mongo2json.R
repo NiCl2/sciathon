@@ -2,27 +2,31 @@ library(mongolite)
 library(tidyverse)
 library(jsonlite)
 
-collection_name <- "health_responses"
+options(mongo_password = "")
+mongo_user <- "NiCl2"
+mongo_collection <- "article_scores1"
+mongo_database <- "article_scores"
+mongo_cluster <- "sciathon"
+data_colnames <- c("url", "score", "evidence", "when", "bias", "clear", "uncertainty")
 
 load_data <- function() {
-  db <- mongo(collection = collection_name,
-              url = paste0("mongodb+srv://abc:",
-                           options()$mongo_password,
-                           "@cluster0-hzl4d.mongodb.net/test?retryWrites=true&w=majority"))
-  data <- db$find()
+  db = mongo(collection = mongo_collection,
+                   url = paste0("mongodb+srv://",
+                                mongo_user,
+                                ":",
+                                options()$mongo_password,
+                                "@",
+                                mongo_cluster,
+                                "-a2eyh.gcp.mongodb.net/",
+                                mongo_database,
+                                "?retryWrites=true&w=majority")
+  )
+  data = db$find()
+  data[, 2:ncol(data)] <- sapply(data[, 2:ncol(data)], as.numeric)
   data
 }
 
-# load uncleaned data
-db_unclean<-load_data()
-
-# remove early attempts for the moment (these were wrong from earlier version)
-db_clean <- db_unclean[4:nrow(db_unclean),]
-
-# Drop Healthcare column for the moment and make V2 nuemric
-db_clean <- db_clean %>% select(-V3) %>%
-  mutate(V2=as.numeric(V2))
-
+mongo_dat <- load_data()
 
 # summarise if same website/V1 name
 db_sum <- db_clean %>% mutate(V1=gsub("(^http://)|(^https://)|(/$)","",V1),
