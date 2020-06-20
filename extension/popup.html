@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <title>ScienCheck</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body class="popup-body">
+
+        <h1><span id="findTheTitle"></span></h1>
+        <h2>
+          <span id="findTheAuthor"></span><span id="findTheDomain"></span>
+        </h2>
+        <hr style="border-top: dotted 1px;" />
+        <!-- add the dynamic score here  -->
+        <div id="dinamicscore">
+          <script src="javascript/ep/Chart.bundle.min.js"></script>
+          <canvas id="chart" height="220" width="180"></canvas>
+        </div>
+        <hr style="border-top: dotted 1px;" />
+        <button class="collapsible">Score Overview</button>
+          <div class="content">
+            <p>Here would be the categories with # of scientists verifying.</p>
+          </div>
+          <hr style="border-top: dotted 1px;" />
+          <div class="authSci-btn-group" style="width:100%">
+            <button style="width:100%" id="clickme-signin">
+              Sign-in (ORCiD)
+            </button>
+          </div>
+        <hr style="border-top: dotted 1px;" />
+        <div class="authSci-btn-group" style="width:100%">
+          <button style="width:33.3%">
+            Request score
+          </button>
+          <button style="width:33.3%" id="clickme-about">
+            Learn more
+          </button>
+          <button style="width:33.3%">Contact</button>
+        </div>
+
+        <script src="javascript/content.js"></script>
+        <script src="javascript/popup.js"></script>
+    </body>
+</html>
