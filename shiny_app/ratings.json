@@ -1,0 +1,21 @@
+{
+"www.google.com": {
+	"n_ratings": 2,
+	"score": 5,
+	"evidence": 2,
+	"when": 1,
+	"bias": 1,
+	"clear": 0,
+	"uncertainty": 2
+},
+"www.sciencemag.org/news/2020/06/dark-matter-hunters-inconclusive-signal-grabs-headlines": {
+	"n_ratings": 2,
+	"score": 5,
+	"evidence": 2,
+	"when": 0,
+	"bias": 1,
+	"clear": 2,
+	"uncertainty": 2
+}
+}
+

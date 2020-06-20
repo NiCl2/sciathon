@@ -5,6 +5,6 @@ account: nicl2
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2481682
-bundleId: 3295288
+bundleId: 3296196
 url: https://nicl2.shinyapps.io/shiny_app/
-when: 1592654372.55552
+when: 1592681331.6054

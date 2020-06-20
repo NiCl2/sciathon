@@ -9,7 +9,7 @@ library(shinycssloaders)
 library(httr)
 
 options(shiny.sanitize.errors = FALSE)
-options(mongo_password = "")
+options(mongo_password = "e1BCPtteCgkT4uW1")
 mongo_user <- "NiCl2"
 mongo_collection <- "article_scores1"
 mongo_database <- "article_scores"

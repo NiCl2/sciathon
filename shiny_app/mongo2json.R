@@ -28,25 +28,35 @@ load_data <- function() {
 
 mongo_dat <- load_data()
 
-# summarise if same website/V1 name
-db_sum <- db_clean %>% mutate(V1=gsub("(^http://)|(^https://)|(/$)","",V1),
-                              V1=ifelse(!grepl("^www\\.",V1),paste0("www.",V1),V1)) %>%
-  group_by(V1) %>% summarise(V2median=median(V2),n=n(),V2sd=sd(V2)) %>%
-  mutate(V2=V2median*10,V2median=ceiling(V2median)) %>% select(-V2median) %>%
-  mutate(nsep=str_count(V1,"/")) %>%
-  arrange(desc(nsep))
+# normalise to wwww
+mongo_dat <- mongo_dat %>% mutate(url=gsub("(^http://)|(^https://)|(/$)","",url),
+                              url=ifelse(!grepl("^www\\.",url),paste0("www.",url),url))
 
-#Output
-# alter to prep files in desired format
-db_out <- db_sum %>% select(V1,V2)
+mongo_dat <- group_by(mongo_dat, url) %>% mutate(n_ratings = n()) 
+# summarise if same article
+summarised_dat <- summarise_at(mongo_dat, c("n_ratings", data_colnames[2:length(data_colnames)]), ~ ceiling(mean(.x, na.rm = T)))
 
 # Creating info JSON
 json_content <- paste0("{\n")
-for (i in 1:length(db_out$V1)){
-  cat(paste0("\"", db_out$V1[[i]], "\" : ", db_out$V2[[i]]), ",\n")
-  json_content <- paste0(json_content, paste0("\"", db_out$V1[[i]], "\" : ", db_out$V2[[i]], ",\n"))
+for (i in 1:nrow(summarised_dat)){
+  cat(paste0("\"", summarised_dat$url[[i]], "\":"), "\n")
+  json_content <- paste0(json_content, "\"", summarised_dat$url[[i]], "\": {\n")
+  for (j in 2:ncol(summarised_dat)) {
+    json_content <- paste0(json_content, "\t\"", names(summarised_dat)[j],"\": ", summarised_dat[[i,j]])
+    if (j != ncol(summarised_dat)) {
+      json_content <- paste0(json_content, ",\n")
+    } else {
+      json_content <- paste0(json_content, "\n")
+    }
+  }
+  if (i != nrow(summarised_dat)) {
+    json_content <- paste0(json_content, "},\n")
+  } else {
+    json_content <- paste0(json_content, "}\n")
+  }
+  
 }
 json_content <- paste0(json_content, "}\n")
-fileConn <- file("info.json")
+fileConn <- file("ratings.json")
 writeLines(json_content, fileConn)
 close(fileConn)
