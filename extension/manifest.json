@@ -1,12 +1,17 @@
 {
-    "name": "Getting Started Example",
-    "version": "1.0",
-    "description": "Build an Extension!",
+    "name": "Reliable Science - Sciathon 2020",
+    "short_name": "Reliable Science",
+    "version": "0.0.1",
+    "description": "Allow scientists to score and comment media articles based on scientific credibility",
     "permissions": ["activeTab", "declarativeContent", "storage"],
     "background": {
         "scripts": ["background.js"],
         "persistent": false
     },
+    "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+    }]
     "page_action": {
         "default_popup": "popup.html",
         "default_icon": {
