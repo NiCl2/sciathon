@@ -14,7 +14,7 @@ mongo_user <- "NiCl2"
 mongo_collection <- "article_scores1"
 mongo_database <- "article_scores"
 mongo_cluster <- "sciathon"
-data_colnames <- c("url", "score", "evidence", "when", "bias", "clear", "uncertainty")
+data_colnames <- c("url", "score", "sources1", "sources2", "bias1", "bias2", "clarity1", "clarity2")
 
 ui <- fluidPage(
   uiOutput("block_one"),
@@ -51,9 +51,21 @@ save_data <- function(url, score, answers) {
                              mongo_database,
                              "?retryWrites=true&w=majority")
     )
+    
     data = c(url, score, answers)
-    data <- as.data.frame(t(data))
+    data <- as.data.frame(t(data), stringsAsFactors = FALSE)
+    data[, 2:ncol(data)] <- sapply(data[, 2:ncol(data)], as.numeric)
     colnames(data) <- data_colnames
+    # print(sapply(data, class))
+    # 
+    # print(data)
+    
+    # merge score categories
+    data <- mutate(data, sources = floor(mean(c(sources1, sources2)) * 5)) %>% 
+      mutate(bias = floor(mean(c(bias1, bias2)) * 5)) %>% 
+      mutate(clarity = floor(mean(c(clarity1, clarity2)) * 5)) %>%
+      dplyr::select(url, score, sources, bias, clarity)
+    
     db$insert(data)
     rm(db)
 }
@@ -84,11 +96,13 @@ server <- function(input, output, session) {
     observeEvent(input$load_up, {
       save_data(input$website, 
                 input$slider, 
-                c(input$evidence,
-                input$when,
-                input$bias,
-                input$clear,
-                input$uncertainty))
+                c(input$sources1,
+                input$sources2,
+                input$bias1,
+                input$bias2,
+                input$clarity1,
+                input$clarity2)
+                )
       showModal(submitted_modal())
     })
     
@@ -120,15 +134,16 @@ server <- function(input, output, session) {
     output$score <- renderUI({
         req(webtext() != "" & url.exists(webtext()))
 
-        score_vector = c("evidence" = as.numeric(input$evidence),
-                         "when" = as.numeric(input$when),
-                         "bias" = as.numeric(input$bias), 
-                         "clear" = as.numeric(input$clear),
-                         "uncertainty" = as.numeric(input$uncertainty)
+        score_vector = c("sources1" = as.numeric(input$sources1),
+                         "sources2" = as.numeric(input$sources2),
+                         "bias1" = as.numeric(input$bias1), 
+                         "bias2" = as.numeric(input$bias2),
+                         "clarity1" = as.numeric(input$clarity1),
+                         "clarity2" = as.numeric(input$clarity2)
         )
         # print(score_vector)
         
-        automatic_score = sum(score_vector)
+        automatic_score = floor((sum(score_vector) / 6) * 5)
         
         tagList(tags$p("Suggested score: "),
                 tags$h4(format(automatic_score, digits=2)),

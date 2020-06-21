@@ -7,7 +7,7 @@ mongo_user <- "NiCl2"
 mongo_collection <- "article_scores1"
 mongo_database <- "article_scores"
 mongo_cluster <- "sciathon"
-data_colnames <- c("url", "score", "evidence", "when", "bias", "clear", "uncertainty")
+data_colnames <- c("url", "score", "sources", "bias", "clarity")
 
 load_data <- function() {
   db = mongo(collection = mongo_collection,
@@ -28,7 +28,7 @@ load_data <- function() {
 
 mongo_dat <- load_data()
 
-# normalise to wwww
+# normalise to wwww (TC)
 mongo_dat <- mongo_dat %>% mutate(url=gsub("(^http://)|(^https://)|(/$)","",url),
                               url=ifelse(!grepl("^www\\.",url),paste0("www.",url),url))
 
