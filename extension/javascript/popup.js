@@ -278,13 +278,10 @@ document.getElementById('clickme-contact').addEventListener('click', function(){
 });
 
 function compareUrl(key, url){
-  alert(key + " " + url);
-  var rex = new RegExp(key, 'g');
-  var a = rex.exec(url);
-  if (a == null) {
-      return 0;
-  } else {
+  if (url.includes(key)) {
       return 1;
+  } else {
+      return 0;
   }
 }
 
@@ -293,8 +290,8 @@ function regCheckUrls(url, webData) {
 
   for (const key in webData.webData) {
       comp = compareUrl(key, url);
-      if (comp === 1 ) {
-          return 1;
+      if (comp === 1) {
+          return key;
       }
   }
   return 0;
@@ -309,25 +306,19 @@ document.addEventListener('DOMContentLoaded', function () {
           var activeTab = tabs[0];
           var address = activeTab.url;
           chrome.storage.local.get(['webData'], function(webData){
-            var flag = regCheckUrls(address, webData);
-            var score = webData.webData[address];
-            if (score === undefined) {
+            var newAddress = regCheckUrls(address, webData);
+            if (newAddress === 0) {
               document.getElementById("score").innerHTML = undefined;
           } else {
-              document.getElementById("score").innerHTML = score.score;
-          }
-            /*
-              document.getElementById("firstRow").innerHTML = address;
-              var newaddress = regCheckUrls(address, webData);
-              var score = webData.webData[newaddress];
-              if (score === undefined) {
-                  document.getElementById("secondRow").innerHTML = undefined;
-              } else {
-                  var col = (score > 6) ? 'green' : 'red';
-                  var row = "<span style='color:" + col + "'>" + score + "/10</span>"
-                  document.getElementById("secondRow").innerHTML = row;
-              }
+            var entry = webData.webData[newAddress];
+              document.getElementById("score").innerHTML = entry.score;
+              /*
+              document.getElementById("sources").innerHTML = entry.sources;
+              document.getElementById("bias").innerHTML = entry.bias;
+              document.getElementById("clarity").innerHTML = entry.clarity;
               */
+          }
+
           })        
           
       });
