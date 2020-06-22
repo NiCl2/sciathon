@@ -277,3 +277,59 @@ document.getElementById('clickme-contact').addEventListener('click', function(){
   chrome.tabs.create({url: 'https://www.authentisci.com/contact'});
 });
 
+function compareUrl(key, url){
+  alert(key + " " + url);
+  var rex = new RegExp(key, 'g');
+  var a = rex.exec(url);
+  if (a == null) {
+      return 0;
+  } else {
+      return 1;
+  }
+}
+
+function regCheckUrls(url, webData) {
+  // The info.js should be sorted from the most specific to the least specific.
+
+  for (const key in webData.webData) {
+      comp = compareUrl(key, url);
+      if (comp === 1 ) {
+          return 1;
+      }
+  }
+  return 0;
+  
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+
+ chrome.tabs.query (
+      { currentWindow: true, active: true }, 
+      function(tabs) {
+          var activeTab = tabs[0];
+          var address = activeTab.url;
+          chrome.storage.local.get(['webData'], function(webData){
+            var flag = regCheckUrls(address, webData);
+            var score = webData.webData[address];
+            if (score === undefined) {
+              document.getElementById("score").innerHTML = undefined;
+          } else {
+              document.getElementById("score").innerHTML = score.score;
+          }
+            /*
+              document.getElementById("firstRow").innerHTML = address;
+              var newaddress = regCheckUrls(address, webData);
+              var score = webData.webData[newaddress];
+              if (score === undefined) {
+                  document.getElementById("secondRow").innerHTML = undefined;
+              } else {
+                  var col = (score > 6) ? 'green' : 'red';
+                  var row = "<span style='color:" + col + "'>" + score + "/10</span>"
+                  document.getElementById("secondRow").innerHTML = row;
+              }
+              */
+          })        
+          
+      });
+});
+

@@ -20,6 +20,10 @@ var setCollapsibleEntries = function() {
 	}
 }
 
+chrome.runtime.sendMessage({
+	url: window.location.href
+  })
+
 var getWebsiteInformation = function(){
 	console.log("[getWebsiteURL]");
 	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {

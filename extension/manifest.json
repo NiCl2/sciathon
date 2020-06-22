@@ -21,7 +21,7 @@
       "persistent": false,
       "scripts": ["javascript/background.js"]
     },
-    "permissions": ["tabs"],
+    "permissions": ["tabs", "storage"],
     "icons": {
         "16" : "icon_16x16.png",
         "32" : "icon_32x32.png",
