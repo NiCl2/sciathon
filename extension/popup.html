@@ -4,7 +4,8 @@
         <title>ScienCheck</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
+        <script src="javascript/ep/Chart.min.js"></script>
+      </head>
     <body class="popup-body">
 
         <h1><span id="findTheTitle"></span></h1>
@@ -14,15 +15,16 @@
         <hr style="border-top: dotted 1px;" />
         <!-- add the dynamic score here  -->
         <div id="dinamicscore">
-          <script src="javascript/ep/Chart.bundle.min.js"></script>
+          <div id = "unscored"></div>
           <canvas id="chart" height="220" width="180"></canvas>
+          <h3>Reviewed by <span id="n_ratings"></span> scientists</h3> 
         </div>
         <hr style="border-top: dotted 1px;" />
         <button class="collapsible">Score Overview</button>
           <div class="content">
-            <h3>Sources:  <span id="score-sources"></span></h3> 
-            <h3>Bias:  <span id="score-bias"></span></h3> 
-            <h3>Clarity:  <span id="score-clarity"></span></h3> 
+            <h3>Sources:  <span id="sources"></span></h3> 
+            <h3>Bias:  <span id="bias"></span></h3> 
+            <h3>Clarity:  <span id="clarity"></span></h3> 
           </div>
           <hr style="border-top: dotted 1px;" />
           <div class="authSci-btn-group" style="width:100%">
@@ -42,9 +44,7 @@
             Contact us
           </button>
         </div>
-      <div id="score">
-      </div>
-        <script src="javascript/popup.js"></script>
-        <script src="javascript/content.js"></script>
+      <script src="javascript/popup.js"></script>
+      <script src="javascript/content.js"></script>
     </body>
 </html>

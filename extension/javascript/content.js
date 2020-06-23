@@ -67,25 +67,9 @@ var getWebsiteTitle = function(){
 });
 }
 
-var getScores = function(){
-	console.log("[Getting Sources Score]");
-	var sourceScore = 5;
-	var biasScore = 9;
-	var clarityScore = 8.8;
-	var avgScore = (sourceScore + biasScore + clarityScore) / .3;
-
-	document.getElementById("score-sources").innerHTML = sourceScore.toString().concat("/10");
-	document.getElementById("score-bias").innerHTML = biasScore.toString().concat("/10");;
-	document.getElementById("score-clarity").innerHTML = clarityScore.toString().concat("/10");;
-
-	console.log(`The average score is: ${avgScore}`);
-	globalAvgScore = avgScore;
-}
-
 var init = function(){
 	getWebsiteInformation();
 	setCollapsibleEntries();
-	getScores();
 };
 
 init();
