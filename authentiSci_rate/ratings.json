@@ -1,21 +1,52 @@
 {
-"www.google.com": {
-	"n_ratings": 2,
-	"score": 5,
-	"evidence": 2,
-	"when": 1,
-	"bias": 1,
-	"clear": 0,
-	"uncertainty": 2
+"www.bbc.co.uk/news/science-environment-53086024": {
+	"n_ratings": 3,
+	"score": 7,
+	"sources": 8,
+	"bias": 4,
+	"clarity": 9
 },
-"www.sciencemag.org/news/2020/06/dark-matter-hunters-inconclusive-signal-grabs-headlines": {
-	"n_ratings": 2,
-	"score": 5,
-	"evidence": 2,
-	"when": 0,
-	"bias": 1,
-	"clear": 2,
-	"uncertainty": 2
+"www.bbc.com/news/science-environment-53086024": {
+	"n_ratings": 1,
+	"score": 7,
+	"sources": 10,
+	"bias": 5,
+	"clarity": 5
+},
+"www.dailymail.co.uk/sciencetech/article-8439609/MMR-jab-used-prevent-measles-mumps-rubella-help-protect-against-COVID-19.html": {
+	"n_ratings": 3,
+	"score": 7,
+	"sources": 7,
+	"bias": 6,
+	"clarity": 9
+},
+"www.sciencedaily.com/releases/2020/06/200617150021.htm": {
+	"n_ratings": 1,
+	"score": 8,
+	"sources": 10,
+	"bias": 10,
+	"clarity": 5
+},
+"www.theatlantic.com/health/archive/2013/10/how-oreos-work-like-cocaine/280578/ ": {
+	"n_ratings": 1,
+	"score": 3,
+	"sources": 10,
+	"bias": 2,
+	"clarity": 5
+},
+"www.theconversation.com/coronavirus-why-were-using-llamas-to-help-fight-the-pandemic-139070": {
+	"n_ratings": 3,
+	"score": 9,
+	"sources": 10,
+	"bias": 7,
+	"clarity": 10
+},
+"www.thesun.co.uk/tech/11900184/110-humans-start-civilisation-mars": {
+	"n_ratings": 3,
+	"score": 3,
+	"sources": 1,
+	"bias": 3,
+	"clarity": 7
 }
 }
 

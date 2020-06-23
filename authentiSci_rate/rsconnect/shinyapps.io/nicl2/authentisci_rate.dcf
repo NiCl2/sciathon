@@ -5,6 +5,6 @@ account: nicl2
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2482983
-bundleId: 3297840
+bundleId: 3301820
 url: https://nicl2.shinyapps.io/authentisci_rate/
-when: 1592731647.20081
+when: 1592831239.94526

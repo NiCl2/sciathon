@@ -72,10 +72,10 @@ save_data <- function(url, score, answers) {
 
 submitted_modal <- function(){
   modalDialog(
-    title = "Submitted!",
-    "Thank you",
-    easyClose = TRUE,
-    footer = NULL
+    title = "Score submitted!",
+    "Thank you. Please note that there may be a delay before your score is integrated with the browser extension",
+    # easyClose = TRUE,
+    footer = actionButton("dismiss_modal",label = "Done")
   )
 }
 
@@ -83,7 +83,7 @@ server <- function(input, output, session) {
     
     output$block_one <- renderUI({
       div(class = 'container',
-          br(),
+          br(), br(),
           div(class = 'col-sm-2'),
           div(class = 'col-sm-8',
               textInput("website", "Link to article", placeholder="Enter a URL"),
@@ -106,11 +106,14 @@ server <- function(input, output, session) {
       showModal(submitted_modal())
     })
     
+    observeEvent(input$dismiss_modal, session$reload())
+    
     webtext <- eventReactive(input$block_two, {
         req(input$website != "")
         input$website
     })
     
+    # (WHAT)
     output$exist = renderText({
         req(input$website != "")
         site = webtext()
