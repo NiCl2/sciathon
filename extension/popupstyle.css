@@ -1,0 +1,139 @@
+/******************************************
+                GENERAL
+******************************************/
+.row-spacer{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+button{
+
+  font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+  height: 50px;
+  width: 295px;
+  border: 0em;
+  background-color: #FFFFFF;
+
+}
+
+h1{
+  font-size: large;
+}
+
+h2{
+  font-size: small;
+}
+
+h3{
+  font-size: large;
+  padding-left: 20px;
+}
+
+/******************************************
+                POP WINDOW
+******************************************/
+.blue {
+  color: rgb(0,147,190);
+}
+.red {
+  color: rgb(212,65,114);
+}
+.orange {
+    color: rgb(255, 99, 71);
+}
+.popup-body {
+
+  font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+  /*font-size: 100%;*/
+  color: rgba(0,0,0,0.9);
+  border: 3px;
+  border-radius: 5px;
+  /* height: 550px; */
+  width: 300px;
+  background-color: #FFFFFF;
+  border-color: #943D93;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+/*
+Collapsible buttons
+*/
+
+.collapsible {
+  background-color: #802F7C;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #943D93;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+/* END COLLAPSE OVERVIEW HTML */
+
+/* START BUTTON GROUP */
+.authSci-btn-group button {
+  background-color: #802F7C;
+  border: 1px solid; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+/* Clear floats (clearfix hack) */
+.authSci-btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.authSci-btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.authSci-btn-group button:hover {
+  background-color: #943D93;
+}
+
+/******************************************
+              THUMBS
+******************************************/
+.highlight-selection:hover{
+  background-color: rgba(0,0,0,0.1);
+}
+
+
+.dinamicscore {
+  margin-top: 5px;
+  padding: 5px;
+}

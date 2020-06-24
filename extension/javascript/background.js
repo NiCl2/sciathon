@@ -10,6 +10,7 @@ chrome.runtime.onMessage.addListener(
 */
 
 // Checking page title
+/*
 if (document.title.indexOf("Google") != -1) {
     //Creating Elements
     var btn = document.createElement("BUTTON")
@@ -18,7 +19,7 @@ if (document.title.indexOf("Google") != -1) {
     //Appending to DOM 
     document.body.appendChild(btn);
 }
-
+*/
 
 (function readJSON(){
   chrome.runtime.getPackageDirectoryEntry(function(root) {

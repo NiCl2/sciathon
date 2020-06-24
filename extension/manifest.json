@@ -7,13 +7,13 @@
         {
             "matches": ["<all_urls>"],
             "js": ["javascript/content.js", "javascript/popup.js"],
-            "css": ["style.css"],
+            "css": ["popupstyle.css"],
 
             "run_at": "document_end"
         }
     ],
     "browser_action": {
-        "default_title": "ScienCheck",
+        "default_title": "authentiSci",
         "default_icon": "icon_16x16.png",
         "default_popup": "popup.html"
     },
