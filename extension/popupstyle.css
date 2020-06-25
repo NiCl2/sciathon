@@ -1,6 +1,7 @@
 /******************************************
                 GENERAL
 ******************************************/
+
 .row-spacer{
   padding-top: 10px;
   padding-bottom: 10px;
@@ -29,19 +30,21 @@ h3{
   padding-left: 20px;
 }
 
+
+
 /******************************************
                 POP WINDOW
 ******************************************/
-.blue {
+.authentiSci .blue {
   color: rgb(0,147,190);
 }
-.red {
+.authentiSci .red {
   color: rgb(212,65,114);
 }
-.orange {
+.authentiSci .orange {
     color: rgb(255, 99, 71);
 }
-.popup-body {
+.authentiSci .popup-body {
 
   font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
   /*font-size: 100%;*/
@@ -62,7 +65,7 @@ h3{
 Collapsible buttons
 */
 
-.collapsible {
+.authentiSci .collapsible {
   background-color: #802F7C;
   color: white;
   cursor: pointer;
@@ -74,11 +77,11 @@ Collapsible buttons
   font-size: 15px;
 }
 
-.active, .collapsible:hover {
+.authentiSci .active, .collapsible:hover {
   background-color: #943D93;
 }
 
-.collapsible:after {
+.authentiSci .collapsible:after {
   content: '\002B';
   color: white;
   font-weight: bold;
@@ -86,11 +89,11 @@ Collapsible buttons
   margin-left: 5px;
 }
 
-.active:after {
+.authentiSci .active:after {
   content: "\2212";
 }
 
-.content {
+.authentiSci .content {
   padding: 0 18px;
   max-height: 0;
   overflow: hidden;
@@ -100,7 +103,7 @@ Collapsible buttons
 /* END COLLAPSE OVERVIEW HTML */
 
 /* START BUTTON GROUP */
-.authSci-btn-group button {
+.authentiSci button {
   background-color: #802F7C;
   border: 1px solid; /* Green border */
   color: white; /* White text */
@@ -110,30 +113,30 @@ Collapsible buttons
 }
 
 /* Clear floats (clearfix hack) */
-.authSci-btn-group:after {
+.authentiSci:after {
   content: "";
   clear: both;
   display: table;
 }
 
-.authSci-btn-group button:not(:last-child) {
+.authentiSci button:not(:last-child) {
   border-right: none; /* Prevent double borders */
 }
 
 /* Add a background color on hover */
-.authSci-btn-group button:hover {
+.authentiSci button:hover {
   background-color: #943D93;
 }
 
 /******************************************
               THUMBS
 ******************************************/
-.highlight-selection:hover{
+.authentiSci .highlight-selection:hover{
   background-color: rgba(0,0,0,0.1);
 }
 
 
-.dinamicscore {
+.authentiSci .dinamicscore {
   margin-top: 5px;
   padding: 5px;
 }

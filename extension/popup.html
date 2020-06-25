@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <title>ScienCheck</title>
+        <title>authentiSci</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="popupstyle.css">
         <script src="javascript/ep/Chart.min.js"></script>
       </head>
-    <body class="popup-body">
-
+    <body class="authentiSci">
+      <div class = "popup-body">
         <h1><span id="findTheTitle"></span></h1>
         <h2>
           <span id="findTheAuthor"></span><span id="findTheDomain"></span>
@@ -27,13 +27,13 @@
             <h3>Clarity:  <span id="clarity"></span></h3> 
           </div>
           <hr style="border-top: dotted 1px;" />
-          <div class="authSci-btn-group" style="width:100%">
+          <div style="width:100%">
             <button style="width:100%" id="clickme-signin">
               Sign-in (ORCiD)
             </button>
           </div>
         <hr style="border-top: dotted 1px;" />
-        <div class="authSci-btn-group" style="width:100%">
+        <div style="width:100%">
           <button style="width:33.3%" id="clickme-request">
             Request score
           </button>
@@ -46,5 +46,6 @@
         </div>
       <script src="javascript/popup.js"></script>
       <script src="javascript/content.js"></script>
+    </div>
     </body>
 </html>
