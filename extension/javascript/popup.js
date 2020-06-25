@@ -1,5 +1,3 @@
-
-
 Chart.pluginService.register({
   beforeDraw: function(chart) {
     if (chart.config.options.elements.center) {
@@ -134,7 +132,6 @@ function compareUrl(key, url){
 }
 
 function regCheckUrls(url, webData) {
-  // The info.js should be sorted from the most specific to the least specific.
 
   for (const key in webData.webData) {
       comp = compareUrl(key, url);

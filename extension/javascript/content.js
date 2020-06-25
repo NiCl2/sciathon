@@ -1,5 +1,4 @@
 var domainName = "";
-var globalAvgScore = 0;
 
 var setCollapsibleEntries = function() {
 	console.log("[setCollapsibleEntries]");

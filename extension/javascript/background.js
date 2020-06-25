@@ -1,24 +1,8 @@
+/*
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
     console.log(sendResponse);    
   });
-
-// Now inject a script onto the page
-/*chrome.tabs.executeScript(tab.id, {
-    code: "chrome.extension.sendRequest({content: document.body.innerHTML}, function(response) { console.log('success'); });"
-  }, function() { console.log('done'); });
-*/
-
-// Checking page title
-/*
-if (document.title.indexOf("Google") != -1) {
-    //Creating Elements
-    var btn = document.createElement("BUTTON")
-    var t = document.createTextNode("CLICK ME");
-    btn.appendChild(t);
-    //Appending to DOM 
-    document.body.appendChild(btn);
-}
 */
 
 (function readJSON(){
@@ -38,25 +22,51 @@ if (document.title.indexOf("Google") != -1) {
   });
 })();
 
+function compareUrl(key, url){
+    if (url.includes(key)) {
+        return 1;
+    } else {
+        return 0;
+    }
+  }
 
-/*
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  chrome.storage.local.get(['webData'], function(webData){
-  console.log(webData);
+function regCheckUrls(url, webData) {
+    console.log(url);
+    for (const key in webData.webData) {
+        comp = compareUrl(key, url);
+        if (comp === 1) {
+            return key;
+        }
+    }
+    return 0;
+    
+  };
+ 
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+    chrome.tabs.get(activeInfo.tabId, function (tab) {
+        console.log(tab.url);
+        chrome.storage.local.get(['webData'], function (webData) {
+            var addressMatch = regCheckUrls(tab.url, webData);
+            if (addressMatch === 0) {
+                
+            } else {
+                var entry = webData.webData[addressMatch];
+                if (entry.score < 5) {
+                    notify()
+                }
+                
+            }
 
-      var comp = 0;
-      for (const key in webData.webData) {
-          comp = compareUrl(key, request);
-          if (comp === 1 ) {
-              alert("Matched url");
-              break;
-          }
-      };
+        });
 
-      console.log(comp);
+    });
+});
 
-  })
-
-
-})
-*/
+function notify() {
+    chrome.notifications.create({
+        type:     'basic',
+        iconUrl:  'icon_128x128.png',
+        title:    'Article information',
+        message:  'This article has been scored poorly for scientific interpretation',
+        priority: 0});
+}
