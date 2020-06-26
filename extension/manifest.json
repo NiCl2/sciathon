@@ -1,6 +1,6 @@
 {
     "name": "authentiSci",
-    "version": "0.5",
+    "version": "1.0",
     "manifest_version": 2,
     "description": "Access science new article scores based on scientific validity.",
     "content_scripts":[
