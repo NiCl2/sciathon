@@ -2,12 +2,14 @@
                 GENERAL
 ******************************************/
 
-.row-spacer{
+
+
+.authentiSci .row-spacer{
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-button{
+.authentiSci button{
 
   font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
   height: 50px;
@@ -17,15 +19,15 @@ button{
 
 }
 
-h1{
+.authentiSci h1{
   font-size: large;
 }
 
-h2{
+.authentiSci h2{
   font-size: small;
 }
 
-h3{
+.authentiSci h3{
   font-size: large;
   padding-left: 20px;
 }
