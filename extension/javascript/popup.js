@@ -61,6 +61,18 @@ function drawDoughnut(inputData, n_txt) {
     } else {
       var centerTxt = inputData +'/10';
     }
+    var ringColour;
+    if(inputData < 4){
+      ringColour = "#D6142E"
+    } else if(inputData < 5){
+      ringColour = "#F1B353"
+    } else if(inputData === 5){
+      ringColour = "#FFFF66"
+    } else if(inputData < 8){
+      ringColour = "#A7D366"
+    } else{ // inputData>=8!!
+      ringColour = "#4FA766"
+    }
     var config = {
         type: 'doughnut',
         data: {
@@ -68,11 +80,11 @@ function drawDoughnut(inputData, n_txt) {
             datasets: [{
             data: [inputData, 10-inputData],
             backgroundColor: [
-                "#902A90",
+                `${ringColour}`,
                 "#d3d3d3"
             ],
             hoverBackgroundColor: [
-                "#902A90",
+                `${ringColour}`,
                 "#d3d3d3"
             ]
             }]
@@ -86,13 +98,13 @@ function drawDoughnut(inputData, n_txt) {
             },
             cutoutPercentage: 90,
             elements: {
-              
+
               center: {
                   text: centerTxt,
-                  fontStyle: 'Arial', 
-                  sidePadding: 20, 
-                  minFontSize: 20, 
-                  lineHeight: 25 
+                  fontStyle: 'Arial',
+                  sidePadding: 20,
+                  minFontSize: 20,
+                  lineHeight: 25
               },
               centerSub: {
                 text: n_txt,
@@ -140,13 +152,13 @@ function regCheckUrls(url, webData) {
       }
   }
   return 0;
-  
+
 };
 
 document.addEventListener('DOMContentLoaded', function () {
 
  chrome.tabs.query (
-      { currentWindow: true, active: true }, 
+      { currentWindow: true, active: true },
       function(tabs) {
           var activeTab = tabs[0];
           var address = activeTab.url;
@@ -159,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var entry = webData.webData[newAddress];
 
               drawDoughnut(parseInt(entry.score), 'Reviewed by ' + entry.n_ratings + ' scientists');
-              
+
               document.getElementById("sources").innerHTML = entry.sources;
               document.getElementById("bias").innerHTML = entry.bias;
               document.getElementById("clarity").innerHTML = entry.clarity;
@@ -167,8 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
               //document.getElementById("scientists").innerHTML = "Reviewed by " + entry.n_ratings + " scientists"
           }
 
-          })        
-          
+          })
+
       });
 });
-
