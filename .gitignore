@@ -1,0 +1,5 @@
+.vscode/*
+
+.DS_Store
+extension/javascript/.DS_Store
+extension/javascript/ep/.DS_Store
