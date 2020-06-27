@@ -82,10 +82,6 @@ function drawDoughnut(inputData, n_txt) {
             backgroundColor: [
                 `${ringColour}`,
                 "#d3d3d3"
-            ],
-            hoverBackgroundColor: [
-                `${ringColour}`,
-                "#d3d3d3"
             ]
             }]
         },
@@ -95,6 +91,9 @@ function drawDoughnut(inputData, n_txt) {
             },
             tooltips: {
               enabled: false
+            },
+            hover: {
+              mode: null
             },
             cutoutPercentage: 90,
             elements: {
