@@ -2,9 +2,7 @@
     "name": "authentiSci",
     "version": "0.1.0",
     "manifest_version": 2,
-    "description": "View scientific reliability scores when viewing science news articles.",
-
-    
+    "description": "View scientific reliability scores when viewing science news articles online.",
     "browser_action": {
         "default_title": "authentiSci",
         "default_icon": "icon_16x16.png",
@@ -14,7 +12,7 @@
         "persistent": false,
         "scripts": ["javascript/background.js"]
     },
-    "permissions": ["tabs", "storage", "notifications"],
+    "permissions": ["tabs", "notifications"],
     "icons": {
         "16" : "icon_16x16.png",
         "32" : "icon_32x32.png",
