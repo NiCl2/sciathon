@@ -1,11 +1,16 @@
 # Mongodb api
 
-## Requests
+Current address: `authentisci-api.herokuapp.com/`
+
+## Available requests
 
 ```
 /api/v1/all - prints out the all entries
 
-/api/v1/match?ad=<to-match> - matches entry from the field X
+/api/v1/match?ad=<to-match> - matches entry from the field *match_website_field* (from app.py)
+
+/api/v1/average?ad=<to-match> - computes average of key elements of entry from the field *match_website_field* (from app.py)
+
 ```
 
 ## Running Locally
