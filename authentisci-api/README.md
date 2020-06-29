@@ -5,7 +5,7 @@ Current address: `authentisci-api.herokuapp.com/`
 ## Available requests
 
 ```
-/api/v1/all - prints out the all entries
+/api/v1/all - despite the name prints out 10 first entries for testing purposes
 
 /api/v1/match?ad=<to-match> - matches entry from the field *match_website_field* (from app.py)
 
