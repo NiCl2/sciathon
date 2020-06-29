@@ -130,23 +130,25 @@ document.getElementById('clickme-contact').addEventListener('click', function(){
   chrome.tabs.create({url: 'https://www.authentisci.com/contact'});
 });
 
-function compareUrl(key, url){
-  if (url.includes(key)) {
-      return 1;
-  } else {
-      return 0;
-  }
-}
+// matching to MONGO database 
+const API_URL = 'https://authentisci-api.herokuapp.com/api/v1/average?ad=';
 
-function regCheckUrls(url, webData) {
+function dbCheckUrls(url) {
+  fetch(API_URL + url)
+    .then(res => res.json())
+    .then(data => {
 
-  for (const key in webData.webData) {
-      comp = compareUrl(key, url);
-      if (comp === 1) {
-          return key;
-      }
-  }
-  return 0;
+      drawDoughnut(parseInt(data.score), 'Reviewed by ' + data.n + ' scientists');
+
+      document.getElementById("sources").innerHTML = data.sources;
+      document.getElementById("bias").innerHTML = data.bias;
+      document.getElementById("clarity").innerHTML = data.clarity;
+
+    }).catch(err => {
+
+      drawDoughnut(null, 'Request below');
+        
+    });
 
 };
 
@@ -157,22 +159,8 @@ document.addEventListener('DOMContentLoaded', function () {
       function(tabs) {
           var activeTab = tabs[0];
           var address = activeTab.url;
-          chrome.storage.local.get(['webData'], function(webData){
-            var newAddress = regCheckUrls(address, webData);
-            if (newAddress === 0) {
-              drawDoughnut(null, 'Request below');
-          } else {
-            var entry = webData.webData[newAddress];
-
-              drawDoughnut(parseInt(entry.score), 'Reviewed by ' + entry.n_ratings + ' scientists');
-
-              document.getElementById("sources").innerHTML = entry.sources;
-              document.getElementById("bias").innerHTML = entry.bias;
-              document.getElementById("clarity").innerHTML = entry.clarity;
-
-          }
-
-          })
+          
+          dbCheckUrls(address);
 
       });
 });
