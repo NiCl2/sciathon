@@ -1,25 +1,18 @@
 {
     "name": "authentiSci",
-    "version": "1.0",
+    "version": "0.1.0",
     "manifest_version": 2,
-    "description": "Access science new article scores based on scientific validity.",
-    "content_scripts":[
-        {
-            "matches": ["<all_urls>"],
-            "js": ["javascript/content.js", "javascript/popup.js"],
-            "css": ["popupstyle.css"],
+    "description": "View scientific reliability scores when viewing science news articles.",
 
-            "run_at": "document_end"
-        }
-    ],
+    
     "browser_action": {
         "default_title": "authentiSci",
         "default_icon": "icon_16x16.png",
         "default_popup": "popup.html"
     },
     "background": {
-      "persistent": false,
-      "scripts": ["javascript/background.js"]
+        "persistent": false,
+        "scripts": ["javascript/background.js"]
     },
     "permissions": ["tabs", "storage", "notifications"],
     "icons": {
@@ -28,4 +21,4 @@
         "48" : "icon_48x48.png",
         "128" : "icon_128x128.png"
     }
-  }
+}

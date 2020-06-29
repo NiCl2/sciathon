@@ -119,18 +119,14 @@ function drawDoughnut(inputData, n_txt) {
 
 // links to our website
 document.getElementById('clickme-signin').addEventListener('click', function(){
-    console.log("[Clicked button] Sign-In");
     chrome.tabs.create({url: 'https://orcid.org/oauth/authorize?client_id=APP-NPKDH3DEAO6YUP22&response_type=code&scope=/authenticate&redirect_uri=https://www.authentisci.com/rating'});
 });
 document.getElementById('clickme-request').addEventListener('click', function(){
-    console.log("[Clicked button] Request Score");
 });
 document.getElementById('clickme-about').addEventListener('click', function(){
-    console.log("[Clicked button] About");
     chrome.tabs.create({url: 'https://www.authentisci.com/about'});
 });
 document.getElementById('clickme-contact').addEventListener('click', function(){
-  console.log("[Clicked button] Contact");
   chrome.tabs.create({url: 'https://www.authentisci.com/contact'});
 });
 
@@ -164,7 +160,6 @@ document.addEventListener('DOMContentLoaded', function () {
           chrome.storage.local.get(['webData'], function(webData){
             var newAddress = regCheckUrls(address, webData);
             if (newAddress === 0) {
-              //document.getElementById("unscored").innerHTML = "Article not yet scored. Request below."
               drawDoughnut(null, 'Request below');
           } else {
             var entry = webData.webData[newAddress];
@@ -175,10 +170,67 @@ document.addEventListener('DOMContentLoaded', function () {
               document.getElementById("bias").innerHTML = entry.bias;
               document.getElementById("clarity").innerHTML = entry.clarity;
 
-              //document.getElementById("scientists").innerHTML = "Reviewed by " + entry.n_ratings + " scientists"
           }
 
           })
 
       });
 });
+
+
+// ex content
+
+var domainName = "";
+
+var setCollapsibleEntries = function() {
+	var coll = document.getElementsByClassName("collapsible");
+	var ix;
+
+	for (ix = 0; ix < coll.length; ix++) {
+			coll[ix].addEventListener("click", function () {
+					this.classList.toggle("active");
+					var content = this.nextElementSibling;
+					if (content.style.maxHeight) {
+							content.style.maxHeight = null;
+					}
+					else {
+							content.style.maxHeight = content.scrollHeight + "px";
+					}
+			});
+	}
+}
+
+var getWebsiteInformation = function(){
+	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+	    var url = tabs[0].url;
+
+	    // REGEX TO FIND DOMAIN NAME
+	    var domain = url.match(/^[\w-]+:\/{2,}\[?([\w\.:-]+)\]?(?::[0-9]*)?/)[1];
+			var pageheadings = tabs[0].title.split("-", 2);
+			var pagetitle = pageheadings[0];
+
+			domainName = domain;
+
+			document.getElementById("findTheTitle").innerHTML = pagetitle;
+
+			document.getElementById("findTheDomain").innerHTML = domainName;
+
+
+
+	});
+}
+
+var getWebsiteTitle = function(){
+	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+		var pagetitle = tabs[0].title;
+		document.getElementById("findTheTitle").innerHTML = pagetitle;
+
+});
+}
+
+var init = function(){
+	getWebsiteInformation();
+	setCollapsibleEntries();
+};
+
+init();

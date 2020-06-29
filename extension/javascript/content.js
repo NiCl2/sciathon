@@ -29,25 +29,21 @@ var getWebsiteInformation = function(){
 	    var url = tabs[0].url;
 	    console.log("the URL is: " + url);
 
-	    //parse URL here
 	    // REGEX TO FIND DOMAIN NAME
 	    var domain = url.match(/^[\w-]+:\/{2,}\[?([\w\.:-]+)\]?(?::[0-9]*)?/)[1];
 			var pageheadings = tabs[0].title.split("-", 2);
 			var pagetitle = pageheadings[0];
-			// var pageauthor = "";
-			// if (pageheadings.length > 1){
-			// 	pageauthor = pageheadings[1].concat(" :");
-			// }
+
 			domainName = domain;
 
 			console.log("the parsed URL is: " + domain);
 			console.log("the TITLE is: " + pagetitle);
 
 			document.getElementById("findTheTitle").innerHTML = pagetitle;
-			// document.getElementById("findTheAuthor").innerHTML = pageheadings;
+
 			document.getElementById("findTheDomain").innerHTML = domainName;
 
-	    // getData();
+
 
 	});
 }
@@ -59,9 +55,6 @@ var getWebsiteTitle = function(){
 		console.log("the TITLE is: " + pagetitle);
 
 		document.getElementById("findTheTitle").innerHTML = pagetitle;
-
-		// $("#findTheDomain").html(domainName);
-		// getData();
 
 });
 }
