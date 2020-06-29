@@ -1,6 +1,6 @@
 import os, re
 from flask import Flask
-from flask import request, jsonify
+from flask import request, abort, jsonify
 import pymongo
 from flask_cors import CORS
 
@@ -60,11 +60,13 @@ def average():
         clarity.append(p['clarity'])
         bias.append(p['bias'])
     n = len(bias)
+    if n == 0:
+        abort(400, 'Error: no entries found matching your address')
     var = {
-        'sources': sum(sources)/n,
-        'score': sum(score)/n,
-        'clarity': sum(clarity)/n,
-        'bias': sum(bias)/n,
+        'sources': int(sum(sources)/n),
+        'score': int(sum(score)/n),
+        'clarity': int(sum(clarity)/n),
+        'bias': int(sum(bias)/n),
         'n': n
     }
     return jsonify(var)
