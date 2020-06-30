@@ -119,12 +119,13 @@ function drawDoughnut(inputData, n_txt) {
 
 // links to our website
 document.getElementById('clickme-signin').addEventListener('click', function(){
-    chrome.tabs.create({url: 'https://orcid.org/oauth/authorize?client_id=APP-NPKDH3DEAO6YUP22&response_type=code&scope=/authenticate&redirect_uri=https://www.authentisci.com/rating'});
+  chrome.tabs.create({url: 'https://orcid.org/oauth/authorize?client_id=APP-NPKDH3DEAO6YUP22&response_type=code&scope=/authenticate&redirect_uri=https://www.authentisci.com/rating'});
 });
 document.getElementById('clickme-request').addEventListener('click', function(){
+  
 });
 document.getElementById('clickme-about').addEventListener('click', function(){
-    chrome.tabs.create({url: 'https://www.authentisci.com/about'});
+  chrome.tabs.create({url: 'https://www.authentisci.com/about'});
 });
 document.getElementById('clickme-contact').addEventListener('click', function(){
   chrome.tabs.create({url: 'https://www.authentisci.com/contact'});
