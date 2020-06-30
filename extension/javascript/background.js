@@ -25,7 +25,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 function notify() {
     chrome.notifications.create({
         type:     'basic',
-        iconUrl:  'icon_128x128.png',
+        iconUrl:  'icons/icon_128x128.png',
         title:    'Article information',
         message:  'This article has been scored poorly for scientific interpretation',
         priority: 0});
