@@ -14,12 +14,12 @@ function dbCheckUrls(url) {
 
 };
  
-chrome.tabs.onActivated.addListener(function (activeInfo) {
-    chrome.tabs.get(activeInfo.tabId, function (tab) {
-        
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+    if (changeInfo.status == 'complete' && tab.active) {
+
         dbCheckUrls(tab.url);
 
-    });
+    }
 });
 
 function notify() {

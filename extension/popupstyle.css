@@ -16,15 +16,6 @@
   padding-left: 20px;
 }
 
-.authentiSci .blue {
-  color: rgb(0,147,190);
-}
-.authentiSci .red {
-  color: rgb(212,65,114);
-}
-.authentiSci .orange {
-    color: rgb(255, 99, 71);
-}
 .authentiSci .popup-body {
 
   font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
@@ -103,7 +94,7 @@
   background-color: rgba(0,0,0,0.1);
 }
 
-.authentiSci .dinamicscore {
+.authentiSci .dynamicscore {
   margin-top: 5px;
   padding: 5px;
 }
