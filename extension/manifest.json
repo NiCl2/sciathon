@@ -27,7 +27,7 @@
         "tabs", 
         "notifications",
         "https://authentisci-api.herokuapp.com/api/v1/*",
-        "https://www.authentisci.com",
+        "https://www.authentisci.com/*",
         "https://orcid.org/*"
     ]
     
