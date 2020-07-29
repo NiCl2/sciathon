@@ -48,7 +48,7 @@ def match():
 def add():
     record = request.data
     record = json.loads(record)
-    mandatory_fields = ['sources', 'score', 'clarity', 'bias']
+    mandatory_fields = ['url', 'sources', 'score', 'clarity', 'bias']
     for k in mandatory_fields:
         assert k in record.keys(), '*{}* missing'.format(k)
     try:
