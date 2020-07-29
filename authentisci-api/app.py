@@ -1,4 +1,4 @@
-import os, re
+import os, re, json
 from flask import Flask
 from flask import request, abort, jsonify
 import pymongo
@@ -43,6 +43,24 @@ def match():
         p.pop('_id',None)
         entries_list.append(p)
     return jsonify(entries_list)
+
+@app.route('/api/v1/add', methods=['POST'])
+def add():
+    record = request.data
+    record = json.loads(record)
+    mandatory_fields = ['url', 'sources', 'score', 'clarity', 'bias']
+    for k in mandatory_fields:
+        assert k in record.keys(), '*{}* missing'.format(k)
+    try:
+        status = db[collection_name].insert_one(record)
+        print('added', status.acknowledged)
+        st = True
+        return jsonify([st]), 200
+    except Exception as e:
+        print(e)
+        print('problem with adding record')
+        st = False
+        return jsonify([st]), 400
 
 @app.route('/api/v1/average', methods=['GET'])
 def average():
