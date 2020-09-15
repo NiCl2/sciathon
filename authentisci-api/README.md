@@ -11,6 +11,8 @@ Current address: `authentisci-api.herokuapp.com/`
 
 /api/v1/average?ad=<to-match> - computes average of key elements of entry from the field *match_website_field* (from app.py)
 
+/api/v1/add - POST method for adding new entries
+
 ```
 
 ## Running Locally
