@@ -4,24 +4,20 @@
     "manifest_version": 2,
     "description": "View scientific reliability scores when viewing science news articles online.",
     "icons": {
-        "16" : "images/authentisci_16x16.png",
-        "32" : "images/authentisci_32x32.png",
-        "48" : "images/authentisci_48x48.png",
-        "128" : "images/authentisci_128x128.png"
+        "16" : "images/authentisci-16x16.png",
+        "32" : "images/authentisci-32x32.png",
+        "48" : "images/authentisci-48x48.png",
+        "128" : "images/authentisci-128x128.png"
     },
     "browser_action": {
         "default_title": "authentiSci",
         "default_icon": {
-            "16" : "images/authentisci_16x16.png",
-            "32" : "images/authentisci_32x32.png",
-            "48" : "images/authentisci_48x48.png",
-            "128" : "images/authentisci_128x128.png"
+            "16" : "images/authentisci-16x16.png",
+            "32" : "images/authentisci-32x32.png",
+            "48" : "images/authentisci-48x48.png",
+            "128" : "images/authentisci-128x128.png"
         },
         "default_popup": "popup.html"
-    },
-    "background": {
-        "persistent": false,
-        "scripts": ["javascript/background.js"]
     },
     "permissions": [
         "tabs", 
