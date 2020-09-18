@@ -1,0 +1,34 @@
+{
+    "name": "authentiSci",
+    "version": "0.1.3",
+    "manifest_version": 2,
+    "description": "View scientific reliability scores when viewing science news articles online.",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "authentisci@gmail.com"
+        }
+    },
+    "icons": {
+        "16" : "images/authentisci-16x16.png",
+        "32" : "images/authentisci-32x32.png",
+        "48" : "images/authentisci-48x48.png",
+        "128" : "images/authentisci-128x128.png"
+    },
+    "browser_action": {
+        "default_title": "authentiSci",
+        "default_icon": {
+            "16" : "images/authentisci-16x16.png",
+            "32" : "images/authentisci-32x32.png",
+            "48" : "images/authentisci-48x48.png",
+            "128" : "images/authentisci-128x128.png"
+        },
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs", 
+        "https://authentisci-api.herokuapp.com/api/v1/*",
+        "https://www.authentisci.com/*",
+        "https://orcid.org/*"
+    ]
+    
+}
