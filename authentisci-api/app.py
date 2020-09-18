@@ -22,8 +22,8 @@ db = client[db_name]
 def hello():
     return "Hello World from authentisci!"
 
-@app.route('/api/v1/all', methods=['GET'])
-def api_all():
+@app.route('/api/v1/demo', methods=['GET'])
+def demo():
     entries_list = []
     ii = 0
     for p in db[collection_name].find():
@@ -31,6 +31,14 @@ def api_all():
         entries_list.append(p)
         ii += 1
         if ii > 10: break
+    return jsonify(entries_list)
+
+@app.route('/api/v1/all', methods=['GET'])
+def api_all():
+    entries_list = []
+    for p in db[collection_name].find():
+        p.pop('_id',None)
+        entries_list.append(p)
     return jsonify(entries_list)
 
 @app.route('/api/v1/match', methods=['GET'])
@@ -48,7 +56,7 @@ def match():
 def add():
     record = request.data
     record = json.loads(record)
-    mandatory_fields = ['url', 'sources', 'score', 'clarity', 'bias']
+    mandatory_fields = ['url', 'score', 'clarity', 'bias']
     for k in mandatory_fields:
         assert k in record.keys(), '*{}* missing'.format(k)
     try:
