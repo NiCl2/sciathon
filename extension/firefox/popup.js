@@ -141,9 +141,9 @@ function dbCheckUrls(url) {
 
       drawDoughnut(parseInt(data.score), 'Reviewed by ' + data.n + ' scientists');
 
-      document.getElementById("sources").innerHTML = data.sources;
-      document.getElementById("bias").innerHTML = data.bias;
-      document.getElementById("clarity").innerHTML = data.clarity;
+      document.getElementById("sources").textContent = data.sources;
+      document.getElementById("bias").textContent = data.bias;
+      document.getElementById("clarity").textContent = data.clarity;
 
     }).catch(err => {
 
@@ -200,9 +200,9 @@ var getWebsiteInformation = function(){
 
 			domainName = domain;
 
-			document.getElementById("findTheTitle").innerHTML = pagetitle;
+			document.getElementById("findTheTitle").textContent = pagetitle;
 
-			document.getElementById("findTheDomain").innerHTML = domainName;
+			document.getElementById("findTheDomain").textContent = domainName;
 
 
 
@@ -212,7 +212,7 @@ var getWebsiteInformation = function(){
 var getWebsiteTitle = function(){
 	browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 		var pagetitle = tabs[0].title;
-		document.getElementById("findTheTitle").innerHTML = pagetitle;
+		document.getElementById("findTheTitle").textContent = pagetitle;
 
 });
 }
