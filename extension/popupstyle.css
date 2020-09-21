@@ -111,7 +111,7 @@
 
 .slider {
   -webkit-appearance: none;
-  width: 100%;
+  width: 95%;
   height: 25px;
   background: #d3b2d1;
   outline: none;
@@ -143,7 +143,7 @@
 input[type=text] {
   width: 100%;
   padding: 5px;
-  margin: 5px 5px 15px 5px;
+  margin: 5px 5px 15px 0px;
   box-sizing: border-box;
   border-radius: 4px;
   font-family: sans-serif;

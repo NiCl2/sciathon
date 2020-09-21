@@ -47,4 +47,3 @@ document.addEventListener('DOMContentLoaded', function () {
              document.getElementById("url").value = activeTab.url;
          });
    });
-
