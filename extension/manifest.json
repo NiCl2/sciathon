@@ -20,7 +20,8 @@
         "default_popup": "popup.html"
     },
     "permissions": [
-        "tabs", 
+        "tabs",
+        "storage",
         "https://authentisci-api.herokuapp.com/api/v1/*",
         "https://www.authentisci.com/*",
         "https://orcid.org/*"
