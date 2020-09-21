@@ -1,3 +1,11 @@
+// matching to MONGO database 
+const API_URL = 'https://authentisci-api.herokuapp.com/api/v1/average?ad=';
+
+const API_URL_ALL = 'https://authentisci-api.herokuapp.com/api/v1/all';
+
+const API_REQUEST_URL = 'https://authentisci-api.herokuapp.com/api/v1/request';
+
+
 Chart.pluginService.register({
   beforeDraw: function(chart) {
     if (chart.config.options.elements.center) {
@@ -117,24 +125,45 @@ function drawDoughnut(inputData, n_txt) {
     var myChart = new Chart(ctx, config);
 };
 
+var submit_request = function(){
+  browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+    var url = tabs[0].url;
+    if (!document.getElementById("sources").innerHTML == "") {
+      alert("This website has a score already ;)");
+      return;
+    };
+    var http = new XMLHttpRequest();
+    http.open('POST', API_REQUEST_URL, true);
+    var params = '{"url":"' +  url +'"}';
+    http.setRequestHeader('Content-type', 'application/json');
+
+    http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+            alert("Request submitted successfully!");
+        }
+        if (http.readyState == 4 && http.status != 200) {
+          alert("Problem with submitting request :( Try again later...");
+        };
+    }
+    console.log("Submit request");
+    http.send(params);
+  });
+};
+
 // links to our website
 document.getElementById('clickme-signin').addEventListener('click', function(){
-  chrome.tabs.create({url: 'https://orcid.org/oauth/authorize?client_id=APP-NPKDH3DEAO6YUP22&response_type=code&scope=/authenticate&redirect_uri=https://www.authentisci.com/rating'});
+  browser.tabs.create({url: 'https://orcid.org/oauth/authorize?client_id=APP-NPKDH3DEAO6YUP22&response_type=code&scope=/authenticate&redirect_uri=https://www.authentisci.com/rating'});
 });
 document.getElementById('clickme-request').addEventListener('click', function(){
-  
+  submit_request();
 });
+
 document.getElementById('clickme-about').addEventListener('click', function(){
-  chrome.tabs.create({url: 'https://www.authentisci.com/about'});
+  browser.tabs.create({url: 'https://www.authentisci.com/about'});
 });
 document.getElementById('clickme-contact').addEventListener('click', function(){
-  chrome.tabs.create({url: 'https://www.authentisci.com/contact'});
+  browser.tabs.create({url: 'https://www.authentisci.com/contact'});
 });
-
-// matching to MONGO database 
-const API_URL = 'https://authentisci-api.herokuapp.com/api/v1/average?ad=';
-
-const API_URL_ALL = 'https://authentisci-api.herokuapp.com/api/v1/all';
 
 function dbGetAllUrls() {
   fetch(API_URL_ALL)
@@ -172,15 +201,15 @@ function dbCheckUrls(url) {
 function storageCheckUrls(url) {
   var gettingItem = browser.storage.local.get('scores_data');
    gettingItem.then((result) => {
-     console.log(url);
+     //console.log(url);
      for (const ii in result['scores_data']) {
-      console.log('k' + result['scores_data'][ii].url);
+      //console.log('k' + result['scores_data'][ii].url);
       if (url == result['scores_data'][ii].url) {
         let tmp = result['scores_data'][ii];
         drawDoughnut(parseInt(tmp.score), 'Reviewed by ' + tmp.n + ' scientists');
-        document.getElementById("sources").innerHTML = tmp.sources;
-        document.getElementById("bias").innerHTML = tmp.bias;
-        document.getElementById("clarity").innerHTML = tmp.clarity;
+        document.getElementById("sources").innerHTML = Math.round(tmp.sources*100)/100;
+        document.getElementById("bias").innerHTML = Math.round(tmp.bias*100)/100;
+        document.getElementById("clarity").innerHTML = Math.round(tmp.clarity*100)/100;
         return;
       }
      };
@@ -229,7 +258,7 @@ var setCollapsibleEntries = function() {
 }
 
 var getWebsiteInformation = function(){
-	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+	browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 	    var url = tabs[0].url;
 
 	    // REGEX TO FIND DOMAIN NAME
@@ -245,7 +274,7 @@ var getWebsiteInformation = function(){
 }
 
 var getWebsiteTitle = function(){
-	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+	browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 		var pagetitle = tabs[0].title;
 		document.getElementById("findTheTitle").innerHTML = pagetitle;
 
