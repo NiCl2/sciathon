@@ -223,7 +223,7 @@ function storageCheckUrls(url) {
 
 document.addEventListener('DOMContentLoaded', function () {
 
- chrome.tabs.query (
+ browser.tabs.query (
       { currentWindow: true, active: true },
       function(tabs) {
           var activeTab = tabs[0];
