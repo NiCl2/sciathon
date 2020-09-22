@@ -44,6 +44,8 @@ Existing heroku app:
 $ git remote set-url heroku  https://git.heroku.com/<NAME_OF_EXISTING_HEROKUAPP>.git
 ```
 
+(or just go to Herku panel and `git pull` the existing version of the app to a separate repo)
+
 Next, you need to export env variables:
 
 ```sh

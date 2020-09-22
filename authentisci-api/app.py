@@ -49,10 +49,10 @@ def api_all():
         n = len(grouped)
         ent = {}
         ent['url'] = url
-        ent['bias'] = sum([g['bias'] for g in grouped])/n
-        ent['clarity'] = sum([g['clarity'] for g in grouped])/n
-        ent['score'] = sum([g['score'] for g in grouped])/n
-        ent['sources'] = sum([g['sources'] for g in grouped])/n
+        ent['bias'] = sum([float(g['bias']) for g in grouped])/n
+        ent['clarity'] = sum([float(g['clarity']) for g in grouped])/n
+        ent['score'] = sum([float(g['score']) for g in grouped])/n
+        ent['sources'] = sum([float(g['sources']) for g in grouped])/n
         ent['n'] = n
         entries_summary.append(ent)
     return jsonify(entries_summary)
@@ -124,10 +124,10 @@ def average():
     bias = []
     for p in db[collection_name].find({match_website_field: {'$in': [ re.compile(address)]}}):
         p.pop('_id', None)
-        sources.append(p['sources'])
-        score.append(p['score'])
-        clarity.append(p['clarity'])
-        bias.append(p['bias'])
+        sources.append(float(p['sources']))
+        score.append(float(p['score']))
+        clarity.append(float(p['clarity']))
+        bias.append(float(p['bias']))
     n = len(bias)
     if n == 0:
         abort(400, 'Error: no entries found matching your address')
