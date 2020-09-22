@@ -301,7 +301,7 @@ function update_records() {
 
     dd = new Date(result["scores_date"]);
     d_today = new Date();
-    if (get_day_diff(d_today, dd) > 0) {
+    if (get_day_diff(d_today, dd) > 30) { //update every month
       dbGetAllUrls();
     }
   }, console.log("Some error with retrieving <scores_date>")
