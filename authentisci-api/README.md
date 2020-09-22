@@ -5,13 +5,17 @@ Current address: `authentisci-api.herokuapp.com/`
 ## Available requests
 
 ```
-/api/v1/all - despite the name prints out 10 first entries for testing purposes
+/api/v1/demo - prints out 10 first entries for testing purposes
+
+/api/v1/all - prints out all summarised entries
 
 /api/v1/match?ad=<to-match> - matches entry from the field *match_website_field* (from app.py)
 
 /api/v1/average?ad=<to-match> - computes average of key elements of entry from the field *match_website_field* (from app.py)
 
-/api/v1/add - POST method for adding new entries
+/api/v1/add - POST method for adding new entries; must have fields: 'url', 'score', 'clarity', 'bias'
+
+/api/v1/request - POST method for adding new request entries; must have field: 'url'
 
 ```
 
