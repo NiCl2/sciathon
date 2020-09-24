@@ -24,9 +24,13 @@
         },
         "default_popup": "popup.html"
     },
+    "background": {
+        "scripts": ["javascript/background.js"]
+    },
     "permissions": [
-        "tabs", 
+        "tabs",
         "storage",
+        "notifications",
         "https://authentisci-api.herokuapp.com/api/v1/*",
         "https://www.authentisci.com/*",
         "https://orcid.org/*"
