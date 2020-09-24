@@ -129,7 +129,7 @@ var submit_request = function(){
   chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
     var url = tabs[0].url;
     if (!document.getElementById("sources").innerHTML == "") {
-      alert("This website has a score already ;)");
+      alert("This webpage has a score already");
       return;
     };
     var http = new XMLHttpRequest();
@@ -142,7 +142,7 @@ var submit_request = function(){
             alert("Request submitted successfully!");
         }
         if (http.readyState == 4 && http.status != 200) {
-          alert("Problem with submitting request :( Try again later...");
+          alert("Problem with submitting request. Try again later...");
         };
     }
     console.log("Submit request");
