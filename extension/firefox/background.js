@@ -19,7 +19,7 @@ browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 function notify() {
     browser.notifications.create({
         type:     'basic',
-        iconUrl:  'images/icon_128x128.png',
+        iconUrl:  'images/authentisci_128x128.png',
         title:    'Article information',
         message:  'This article has been scored poorly for scientific interpretation',
         priority: 0});
