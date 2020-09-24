@@ -229,8 +229,8 @@ document.addEventListener('DOMContentLoaded', function () {
           var activeTab = tabs[0];
           var address = activeTab.url;
           
-          //dbCheckUrls(address);
-          storageCheckUrls(address);
+          dbCheckUrls(address);
+          //storageCheckUrls(address);
       });
 });
 
@@ -304,8 +304,10 @@ function update_records() {
     if (get_day_diff(d_today, dd) > 30) { //update every month
       dbGetAllUrls();
     }
-  }, console.log("Some error with retrieving <scores_date>")
-  );
+  }, () => {
+    dbGetAllUrls();
+    console.log("Some error with retrieving <scores_date>")
+  });
 }
 
 var init = function(){
