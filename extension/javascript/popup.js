@@ -303,7 +303,7 @@ function update_records() {
     if (get_day_diff(d_today, dd) > 30) { //update every month
       dbGetAllUrls();
     }
-  };
+  });
 }
 
 var init = function(){
