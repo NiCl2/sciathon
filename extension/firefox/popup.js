@@ -1,3 +1,11 @@
+// matching to MONGO database 
+const API_URL = 'https://authentisci-api.herokuapp.com/api/v1/average?ad=';
+
+const API_URL_ALL = 'https://authentisci-api.herokuapp.com/api/v1/all';
+
+const API_REQUEST_URL = 'https://authentisci-api.herokuapp.com/api/v1/request';
+
+
 Chart.pluginService.register({
   beforeDraw: function(chart) {
     if (chart.config.options.elements.center) {
@@ -117,13 +125,39 @@ function drawDoughnut(inputData, n_txt) {
     var myChart = new Chart(ctx, config);
 };
 
+var submit_request = function(){
+  browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+    var url = tabs[0].url;
+    if (!document.getElementById("sources").innerHTML == "") {
+      alert("This website has a score already ;)");
+      return;
+    };
+    var http = new XMLHttpRequest();
+    http.open('POST', API_REQUEST_URL, true);
+    var params = '{"url":"' +  url +'"}';
+    http.setRequestHeader('Content-type', 'application/json');
+
+    http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+            alert("Request submitted successfully!");
+        }
+        if (http.readyState == 4 && http.status != 200) {
+          alert("Problem with submitting request :( Try again later...");
+        };
+    }
+    console.log("Submit request");
+    http.send(params);
+  });
+};
+
 // links to our website
 document.getElementById('clickme-signin').addEventListener('click', function(){
   browser.tabs.create({url: 'https://orcid.org/oauth/authorize?client_id=APP-NPKDH3DEAO6YUP22&response_type=code&scope=/authenticate&redirect_uri=https://www.authentisci.com/rating'});
 });
 document.getElementById('clickme-request').addEventListener('click', function(){
-  
+  submit_request();
 });
+
 document.getElementById('clickme-about').addEventListener('click', function(){
   browser.tabs.create({url: 'https://www.authentisci.com/about'});
 });
@@ -131,8 +165,19 @@ document.getElementById('clickme-contact').addEventListener('click', function(){
   browser.tabs.create({url: 'https://www.authentisci.com/contact'});
 });
 
-// matching to MONGO database 
-const API_URL = 'https://authentisci-api.herokuapp.com/api/v1/average?ad=';
+function dbGetAllUrls() {
+  fetch(API_URL_ALL)
+    .then(res => res.json())
+    .then(data => {
+      browser.storage.local.set({ "scores_data" : data });
+      d = new Date();
+      browser.storage.local.set({ "scores_date" : d.toDateString() });
+    }).catch(err => {
+      console.log(err);
+      console.log("Error occured when trying to access the database.");
+    });
+
+};
 
 function dbCheckUrls(url) {
   fetch(API_URL + url)
@@ -141,9 +186,9 @@ function dbCheckUrls(url) {
 
       drawDoughnut(parseInt(data.score), 'Reviewed by ' + data.n + ' scientists');
 
-      document.getElementById("sources").textContent = data.sources;
-      document.getElementById("bias").textContent = data.bias;
-      document.getElementById("clarity").textContent = data.clarity;
+      document.getElementById("sources").innerHTML = data.sources;
+      document.getElementById("bias").innerHTML = data.bias;
+      document.getElementById("clarity").innerHTML = data.clarity;
 
     }).catch(err => {
 
@@ -151,6 +196,29 @@ function dbCheckUrls(url) {
         
     });
 
+};
+
+function storageCheckUrls(url) {
+  var gettingItem = browser.storage.local.get('scores_data');
+   gettingItem.then((result) => {
+     //console.log(url);
+     for (const ii in result['scores_data']) {
+      //console.log('k' + result['scores_data'][ii].url);
+      if (url == result['scores_data'][ii].url) {
+        let tmp = result['scores_data'][ii];
+        drawDoughnut(parseInt(tmp.score), 'Reviewed by ' + tmp.n + ' scientists');
+        document.getElementById("sources").innerHTML = Math.round(tmp.sources*100)/100;
+        document.getElementById("bias").innerHTML = Math.round(tmp.bias*100)/100;
+        document.getElementById("clarity").innerHTML = Math.round(tmp.clarity*100)/100;
+        return;
+      }
+     };
+     drawDoughnut(null, 'Request below');
+  }).catch(err => {
+    drawDoughnut(null, 'Request below');
+    console.log(err);
+    console.log("Some error with comparing with <scores_data>")
+  });
 };
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -161,8 +229,8 @@ document.addEventListener('DOMContentLoaded', function () {
           var activeTab = tabs[0];
           var address = activeTab.url;
           
-          dbCheckUrls(address);
-
+          //dbCheckUrls(address);
+          storageCheckUrls(address);
       });
 });
 
@@ -199,12 +267,8 @@ var getWebsiteInformation = function(){
 			var pagetitle = pageheadings[0];
 
 			domainName = domain;
-
-			document.getElementById("findTheTitle").textContent = pagetitle;
-
-			document.getElementById("findTheDomain").textContent = domainName;
-
-
+			document.getElementById("findTheTitle").innerHTML = pagetitle;
+			document.getElementById("findTheDomain").innerHTML = domainName;
 
 	});
 }
@@ -212,12 +276,40 @@ var getWebsiteInformation = function(){
 var getWebsiteTitle = function(){
 	browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 		var pagetitle = tabs[0].title;
-		document.getElementById("findTheTitle").textContent = pagetitle;
+		document.getElementById("findTheTitle").innerHTML = pagetitle;
 
 });
 }
 
+var get_day_diff = function(d1, d2) {
+  const diff_time = Math.abs(d1 - d2);
+  const diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
+  return diff_days;
+}
+
+var is_empty = function(obj){
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
+function update_records() {
+  var gettingItem = browser.storage.local.get('scores_date');
+   gettingItem.then((result) => {
+    if (is_empty(result)) {
+      console.log("empty object...");
+      dbGetAllUrls();
+    };
+
+    dd = new Date(result["scores_date"]);
+    d_today = new Date();
+    if (get_day_diff(d_today, dd) > 30) { //update every month
+      dbGetAllUrls();
+    }
+  }, console.log("Some error with retrieving <scores_date>")
+  );
+}
+
 var init = function(){
+  update_records();
 	getWebsiteInformation();
 	setCollapsibleEntries();
 };

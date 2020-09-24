@@ -126,7 +126,7 @@ function drawDoughnut(inputData, n_txt) {
 };
 
 var submit_request = function(){
-  browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+  chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
     var url = tabs[0].url;
     if (!document.getElementById("sources").innerHTML == "") {
       alert("This website has a score already ;)");
@@ -152,26 +152,26 @@ var submit_request = function(){
 
 // links to our website
 document.getElementById('clickme-signin').addEventListener('click', function(){
-  browser.tabs.create({url: 'https://orcid.org/oauth/authorize?client_id=APP-NPKDH3DEAO6YUP22&response_type=code&scope=/authenticate&redirect_uri=https://www.authentisci.com/rating'});
+  chrome.tabs.create({url: 'https://orcid.org/oauth/authorize?client_id=APP-NPKDH3DEAO6YUP22&response_type=code&scope=/authenticate&redirect_uri=https://www.authentisci.com/rating'});
 });
 document.getElementById('clickme-request').addEventListener('click', function(){
   submit_request();
 });
 
 document.getElementById('clickme-about').addEventListener('click', function(){
-  browser.tabs.create({url: 'https://www.authentisci.com/about'});
+  chrome.tabs.create({url: 'https://www.authentisci.com/about'});
 });
 document.getElementById('clickme-contact').addEventListener('click', function(){
-  browser.tabs.create({url: 'https://www.authentisci.com/contact'});
+  chrome.tabs.create({url: 'https://www.authentisci.com/contact'});
 });
 
 function dbGetAllUrls() {
   fetch(API_URL_ALL)
     .then(res => res.json())
     .then(data => {
-      browser.storage.local.set({ "scores_data" : data });
+      chrome.storage.local.set({ "scores_data" : data });
       d = new Date();
-      browser.storage.local.set({ "scores_date" : d.toDateString() });
+      chrome.storage.local.set({ "scores_date" : d.toDateString() });
     }).catch(err => {
       console.log(err);
       console.log("Error occured when trying to access the database.");
@@ -199,7 +199,7 @@ function dbCheckUrls(url) {
 };
 
 function storageCheckUrls(url) {
-  var gettingItem = browser.storage.local.get('scores_data');
+  var gettingItem = chrome.storage.local.get('scores_data');
    gettingItem.then((result) => {
      //console.log(url);
      for (const ii in result['scores_data']) {
@@ -223,7 +223,7 @@ function storageCheckUrls(url) {
 
 document.addEventListener('DOMContentLoaded', function () {
 
- browser.tabs.query (
+ chrome.tabs.query (
       { currentWindow: true, active: true },
       function(tabs) {
           var activeTab = tabs[0];
@@ -258,7 +258,7 @@ var setCollapsibleEntries = function() {
 }
 
 var getWebsiteInformation = function(){
-	browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 	    var url = tabs[0].url;
 
 	    // REGEX TO FIND DOMAIN NAME
@@ -274,7 +274,7 @@ var getWebsiteInformation = function(){
 }
 
 var getWebsiteTitle = function(){
-	browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 		var pagetitle = tabs[0].title;
 		document.getElementById("findTheTitle").innerHTML = pagetitle;
 
@@ -292,7 +292,7 @@ var is_empty = function(obj){
 }
 
 function update_records() {
-  var gettingItem = browser.storage.local.get('scores_date');
+  var gettingItem = chrome.storage.local.get('scores_date');
    gettingItem.then((result) => {
     if (is_empty(result)) {
       console.log("empty object...");
