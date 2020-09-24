@@ -1,7 +1,7 @@
 function storageWarnUrl(url) {
     browser.storage.local.get('scores_data', function(result){
        for (const ii in result['scores_data']) {
-        if (url == result['scores_data'][ii].url < result['scores_data'][ii].score < 5) {
+        if (url == result['scores_data'][ii].url && result['scores_data'][ii].score < 5) {
             notify();
           return;
         }

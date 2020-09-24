@@ -292,8 +292,7 @@ var is_empty = function(obj){
 }
 
 function update_records() {
-  var gettingItem = chrome.storage.local.get('scores_date');
-   gettingItem.then((result) => {
+  chrome.storage.local.get('scores_date', (result) => {
     if (is_empty(result)) {
       console.log("empty object...");
       dbGetAllUrls();
@@ -304,10 +303,7 @@ function update_records() {
     if (get_day_diff(d_today, dd) > 30) { //update every month
       dbGetAllUrls();
     }
-  }, () => {
-    dbGetAllUrls();
-    console.log("Some error with retrieving <scores_date>")
-  });
+  };
 }
 
 var init = function(){
