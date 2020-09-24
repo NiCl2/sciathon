@@ -293,7 +293,7 @@ var is_empty = function(obj){
 
 function update_records() {
   chrome.storage.local.get('scores_date', (result) => {
-    if (is_empty(result)) {
+    if (is_empty(result) || result === null) {
       console.log("empty object...");
       dbGetAllUrls();
     };
