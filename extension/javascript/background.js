@@ -10,7 +10,6 @@ function storageWarnUrl(url) {
 };
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    console.log('listener activated;')
     if (changeInfo.status == 'complete' && tab.active) {
         storageWarnUrl(tab.url);
     }

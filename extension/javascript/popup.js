@@ -18,7 +18,7 @@ Chart.pluginService.register({
       var color = centerConfig.color || '#000';
       var maxFontSize = centerConfig.maxFontSize || 75;
       var sidePadding = centerConfig.sidePadding || 20;
-      var sidePaddingCalculated = (sidePadding / 100) * (chart.innerRadius * 2)
+      var sidePaddingCalculated = (sidePadding / 100) * (chart.innerRadius * 2);
       // Start with a base font of 30px
       ctx.font = "30px " + fontStyle;
 
@@ -71,15 +71,15 @@ function drawDoughnut(inputData, n_txt) {
     }
     var ringColour;
     if(inputData < 4){
-      ringColour = "#D6142E"
+      ringColour = "#D6142E";
     } else if(inputData < 5){
-      ringColour = "#F1B353"
+      ringColour = "#F1B353";
     } else if(inputData === 5){
-      ringColour = "#FFFF66"
+      ringColour = "#FFFF66";
     } else if(inputData < 8){
-      ringColour = "#A7D366"
+      ringColour = "#A7D366";
     } else{ // inputData>=8!!
-      ringColour = "#4FA766"
+      ringColour = "#4FA766";
     }
     var config = {
         type: 'doughnut',
@@ -123,7 +123,7 @@ function drawDoughnut(inputData, n_txt) {
         }
     };
     var myChart = new Chart(ctx, config);
-};
+}
 
 var submit_request = function(){
   chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
@@ -131,7 +131,7 @@ var submit_request = function(){
     if (!document.getElementById("sources").innerHTML == "") {
       alert("This webpage has a score already");
       return;
-    };
+    }
     var http = new XMLHttpRequest();
     http.open('POST', API_REQUEST_URL, true);
     var params = '{"url":"' +  url +'"}';
@@ -143,8 +143,8 @@ var submit_request = function(){
         }
         if (http.readyState == 4 && http.status != 200) {
           alert("Problem with submitting request. Try again later...");
-        };
-    }
+        }
+    };
     console.log("Submit request");
     http.send(params);
   });
@@ -177,7 +177,7 @@ function dbGetAllUrls() {
       console.log("Error occured when trying to access the database.");
     });
 
-};
+}
 
 function dbCheckUrls(url) {
   fetch(API_URL + url)
@@ -196,7 +196,7 @@ function dbCheckUrls(url) {
         
     });
 
-};
+}
 
 function storageCheckUrls(url) {
   var gettingItem = chrome.storage.local.get('scores_data');
@@ -212,14 +212,14 @@ function storageCheckUrls(url) {
         document.getElementById("clarity").innerHTML = Math.round(tmp.clarity*100)/100;
         return;
       }
-     };
+     }
      drawDoughnut(null, 'Request below');
   }).catch(err => {
     drawDoughnut(null, 'Request below');
     console.log(err);
-    console.log("Some error with comparing with <scores_data>")
+    console.log("Some error with comparing with <scores_data>");
   });
-};
+}
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -255,7 +255,7 @@ var setCollapsibleEntries = function() {
 					}
 			});
 	}
-}
+};
 
 var getWebsiteInformation = function(){
 	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
@@ -271,7 +271,7 @@ var getWebsiteInformation = function(){
 			document.getElementById("findTheDomain").innerHTML = domainName;
 
 	});
-}
+};
 
 var getWebsiteTitle = function(){
 	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
@@ -279,7 +279,7 @@ var getWebsiteTitle = function(){
 		document.getElementById("findTheTitle").innerHTML = pagetitle;
 
 });
-}
+};
 
 var get_day_diff = function(d1, d2) {
   const diff_time = Math.abs(d1 - d2);
