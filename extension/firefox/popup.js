@@ -143,8 +143,8 @@ var submit_request = function(){
         }
         if (http.readyState == 4 && http.status != 200) {
           alert("Problem with submitting request. Try again later...");
-        };
-    }
+        }
+    };
     console.log("Submit request");
     http.send(params);
   });
@@ -186,9 +186,9 @@ function dbCheckUrls(url) {
 
       drawDoughnut(parseInt(data.score), 'Reviewed by ' + data.n + ' scientists');
 
-      document.getElementById("sources").innerHTML = data.sources;
-      document.getElementById("bias").innerHTML = data.bias;
-      document.getElementById("clarity").innerHTML = data.clarity;
+      document.getElementById("sources").textContent = data.sources;
+      document.getElementById("bias").textContent = data.bias;
+      document.getElementById("clarity").textContent = data.clarity;
 
     }).catch(err => {
 
@@ -196,7 +196,7 @@ function dbCheckUrls(url) {
         
     });
 
-};
+}
 
 function storageCheckUrls(url) {
   var gettingItem = browser.storage.local.get('scores_data');
@@ -207,12 +207,12 @@ function storageCheckUrls(url) {
       if (url == result['scores_data'][ii].url) {
         let tmp = result['scores_data'][ii];
         drawDoughnut(parseInt(tmp.score), 'Reviewed by ' + tmp.n + ' scientists');
-        document.getElementById("sources").innerHTML = Math.round(tmp.sources*100)/100;
-        document.getElementById("bias").innerHTML = Math.round(tmp.bias*100)/100;
-        document.getElementById("clarity").innerHTML = Math.round(tmp.clarity*100)/100;
+        document.getElementById("sources").textContent = Math.round(tmp.sources*100)/100;
+        document.getElementById("bias").textContent = Math.round(tmp.bias*100)/100;
+        document.getElementById("clarity").textContent = Math.round(tmp.clarity*100)/100;
         return;
       }
-     };
+     }
      drawDoughnut(null, 'Request below');
   }).catch(err => {
     drawDoughnut(null, 'Request below');
@@ -267,8 +267,8 @@ var getWebsiteInformation = function(){
 			var pagetitle = pageheadings[0];
 
 			domainName = domain;
-			document.getElementById("findTheTitle").innerHTML = pagetitle;
-			document.getElementById("findTheDomain").innerHTML = domainName;
+			document.getElementById("findTheTitle").textContent = pagetitle;
+			document.getElementById("findTheDomain").textContent = domainName;
 
 	});
 };
@@ -276,7 +276,7 @@ var getWebsiteInformation = function(){
 var getWebsiteTitle = function(){
 	browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 		var pagetitle = tabs[0].title;
-		document.getElementById("findTheTitle").innerHTML = pagetitle;
+		document.getElementById("findTheTitle").textContent = pagetitle;
 
 });
 }
